@@ -1,7 +1,11 @@
 # hackbox_ck42x
 
-CK42X-themed ESP32 firmware based on the hackbox/hackbox lineage, with selected
-hackbox improvements brought into a fresh PlatformIO project layout.
+<p align="center">
+  <img src="assets/hackbox-brand.jpg" alt="hackbox_ck42x branding" width="420" />
+</p>
+
+CK42X-themed ESP32 firmware packaged as a standalone hackbox build with a fresh
+PlatformIO project layout.
 
 This repository is source-only: prebuilt firmware binaries from the donor tree
 were intentionally left out so releases can be rebuilt from the sanitized source.
@@ -14,8 +18,7 @@ were intentionally left out so releases can be rebuilt from the sanitized source
 - Packet Logger and Traffic Monitor
 - Wardriving, probe logging, RSSI tooling, and session logging
 - Remote control dashboard
-- Theme, menu, and UI updates from hackbox
-- Existing hackbox tools carried forward from hackbox where still referenced
+- Theme, menu, and UI updates for the CK42X build
 
 ## Omitted
 
@@ -63,5 +66,5 @@ platformio.ini  Build targets
 
 MIT. See [LICENSE](LICENSE).
 
-Based on hackbox by jbohack and zr_crackiin, with compliance-oriented cleanup
-from hackbox and selected CK42X additions from hackbox.
+Based on upstream ESP32 security-tool firmware by jbohack and zr_crackiin, with
+compliance-oriented cleanup and selected CK42X additions.
