@@ -796,15 +796,9 @@ void setup() {
     }
   }
 
-  // Logo splash: draw the bee logo with the version string overlaid at
-  // the bottom so flashers can confirm firmware version without drilling
-  // into the About menu.
+  // Logo splash: draw the repo branding as a clean full-screen mark.
   u8g2.clearBuffer();
   u8g2.drawXBMP(0, 0, 128, 64, logo_hackbox);
-  u8g2.setFont(u8g2_font_5x8_tr);
-  int16_t logoVerW = u8g2.getUTF8Width(hackboxVersion);
-  u8g2.setCursor(128 - logoVerW - 2, 62);
-  u8g2.print(hackboxVersion);
   u8g2.sendBuffer();
   {
     unsigned long splashStart = millis();
