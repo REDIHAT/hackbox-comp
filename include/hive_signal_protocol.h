@@ -6,7 +6,7 @@
     (or any NRF24-capable emitter) and hackbox's Hive Listener.
 
     Channel: 76 (2476 MHz). Out of the WiFi-1/6/11 mess, matches
-    mousejack's convention of using high-numbered NRF24 channels for
+    standard convention of using high-numbered NRF24 channels for
     custom payloads.
 
     Address: "HIVE1" (5 bytes, little-endian on the wire).

@@ -32,7 +32,6 @@
 #include "../include/handshake_capture.h"
 #include "../include/pmkid_capture.h"
 #include "../include/channel_analyzer.h"
-#include "../include/mousejack.h"
 #include "../include/scanner.h"
 #include "../include/analyzer.h"
 #include "../include/swiftpair.h"
@@ -63,7 +62,6 @@ extern U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2;
 extern void cleanupWiFi();
 extern void cleanupBLE();
 extern void cleanupRadio();
-extern void cleanupMousejack();
 extern void cleanupDroneDetector();
 extern void cleanupDroneSpoofer();
 extern void cleanupFlockDetector();
@@ -89,8 +87,7 @@ const ToolEntry tools[] = {
     {"scanner",         "RF Scanner",          "rf",    scannerSetup,           scannerLoop,           cleanupRadio,             false},
     {"analyzer",        "RF Analyzer",         "rf",    analyzerSetup,          analyzerLoop,          cleanupRadio,             false},
     {"drone_spoofer",   "Drone Spoofer",       "rf",    droneSpooferSetup,      droneSpooferLoop,      cleanupDroneSpoofer,      false},
-    {"mousejack",       "MouseJack",           "rf",    mousejackSetup,         mousejackLoop,         cleanupMousejack,         false},
-    // BLE tools - share radio with WiFi AP, device only
+      // BLE tools - share radio with WiFi AP, device only
     {"ble_spam",        "BLE Spammer",         "ble",   bleSpamSetup,           bleSpamLoop,           cleanupBLE,               true},
     {"bee_spam",        "Bee Spam",            "ble",   beeSpamSetup,           beeSpamLoop,           cleanupBLE,               true},
     {"swift_pair",      "Swift Pair",          "ble",   swiftpairSpamSetup,     swiftpairSpamLoop,     cleanupBLE,               true},

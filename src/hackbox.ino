@@ -99,14 +99,8 @@
 #include "../include/evil_twin.h"
 #endif
 #include "../include/hidden_network.h"
-#ifndef HACKBOX_SCOUT_BUILD
-#include "../include/mousejack.h"
-#endif
 #include "../include/wardriver.h"
 #include "../include/ota_update.h"
-#ifndef HACKBOX_SCOUT_BUILD
-#include "../include/replay_attack.h"
-#endif
 #include "../include/wifi_graffiti.h"
 #include "../include/engagement_report.h"
 #include "../include/wps_scanner.h"
@@ -501,10 +495,6 @@ const MenuItem bleMenu[] = {
 constexpr int BLE_MENU_SIZE = sizeof(bleMenu) / sizeof(bleMenu[0]);
 
 const MenuItem otherMenu[] = {
-#ifndef HACKBOX_SCOUT_BUILD
-  { "MouseJack",      nullptr, mousejackSetup,      mousejackLoop,      cleanupMousejack },
-  { "Replay Attack",  nullptr, replayAttackSetup,   replayAttackLoop,   cleanupReplayAttack },
-#endif
   { "Drone Detector", nullptr, droneDetectorSetup, droneDetectorLoop, cleanupDroneDetector },
   { "Drone Spoofer", nullptr, droneSpooferSetup, droneSpooferLoop, cleanupDroneSpoofer },
   { "Flock Detector", nullptr, flockDetectorSetup, flockDetectorLoop, cleanupFlockDetector },

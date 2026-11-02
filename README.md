@@ -1,70 +1,77 @@
-# hackbox_ck42x
+# HackBox Compliant Firmware (`hackbox-comp`)
 
 <p align="center">
-  <img src="assets/hackbox-brand.jpg" alt="hackbox_ck42x branding" width="420" />
+  <img src="assets/hackbox-brand.jpg" alt="HackBox Branding" width="420" />
 </p>
 
-CK42X-themed ESP32 firmware packaged as a standalone hackbox build with a fresh
-PlatformIO project layout.
+**HackBox Compliant (`hackbox-comp`)** is an educational cybersecurity research and RF auditing firmware for ESP32 devices. 
 
-This repository is source-only: prebuilt firmware binaries from the donor tree
-were intentionally left out so releases can be rebuilt from the sanitized source.
+This repository provides the official source code and build configuration for devices shipped to users, built specifically to meet **strict RF compliance standards (FCC / Tindie Community Guidelines)**.
 
-## Included
+---
 
-- Root-level PlatformIO project layout from hackbox
-- CK42X themed WiFi and BLE name sets
-- Camera Detector and AIO Find Mode
-- Packet Logger and Traffic Monitor
-- Wardriving, probe logging, RSSI tooling, and session logging
-- Remote control dashboard
-- Theme, menu, and UI updates for the CK42X build
+## RF Compliance & Design Assurance
 
-## Omitted
+This firmware build intentionally excludes and eliminates all forms of signal disruption, carrier generation, and offensive transmission tools:
 
-- The RF-jamming module and menu entry from the donor firmware
-- Prebuilt donor firmware binaries
+- **NO RF Jamming / Continuous Carrier Generation:** All calls to `startConstCarrier()`, `stopConstCarrier()`, and intentional noise/jamming routines have been permanently removed.
+- **NO MouseJack or RF Packet Injection:** The `mousejack` module and keystroke injection attacks have been permanently deleted from both the source tree and the menu hierarchy.
+- **NO Replay Attack Module:** The `replay_attack` module has been completely removed.
+- **Passive & Diagnostic Only:** Features are restricted to passive RF signal analysis, packet logging, BLE scanning/tag detection, WiFi security analysis (handshake analysis for network owners), and educational cybersecurity demonstrations.
 
-Use this firmware only on hardware and networks you own or have explicit
-permission to test.
+---
 
-## Build
+## Included Modules
 
-Install PlatformIO, then build the main target:
+- **RF & Spectrum Tools:** RF Analyzer, Channel Analyzer, 2.4GHz Spectrum Scanner, Signal Wars scanner.
+- **Environmental Detectors:** Camera Detector, Drone Detector, Flock Detector, Flipper Zero Detector, Meshtastic/MeshCore Detector, Pwnagotchi Detector, Ray-Ban Meta Detector, SmartTag & AirTag Detector.
+- **WiFi Security & Diagnostics:** WiFi Scanner, Hidden Network Detector, Deauth Scanner (passive monitor), WPS Scanner, Wardriving, Packet Hunter & Packet Logger.
+- **Bluetooth Low Energy (BLE):** BLE Scanner, BLE Inspector, Apple/Android device scout, HoneyBLE.
+- **Hardware & System:** NeoPixel LED status indicators, OLED display manager, battery monitoring, sleep management, session logging.
 
+---
+
+## Build Instructions
+
+### Prerequisites
+- Python 3.8+
+- PlatformIO Core:
+  ```bash
+  pip install platformio
+  ```
+
+### Compiling Firmware
+To build the standard compliant firmware binary for ESP32:
 ```bash
-pip install platformio
 platformio run -e hackbox-main
 ```
 
-Build and upload to a connected board:
-
+### Flashing to Hardware
+Connect your ESP32 board via USB, then run:
 ```bash
-platformio run -e hackbox-main -t upload --upload-port COM4
+platformio run -e hackbox-main -t upload
 ```
 
-Optional targets:
+---
 
-```bash
-platformio run -e hackbox-scout
-platformio run -e hackbox-s3-local
-platformio run -e hardware-test
-```
+## Merged Binary Flashing (ESP Web Tools / esptool)
 
-## Project Layout
+For web flashing or automated manufacturing, the firmware can be flashed using the pre-merged single binary or individual partition offsets:
 
-```text
-include/        Header files
-src/            Firmware sources
-assets/         README and project media
-boards/         Custom PlatformIO board definitions
-scripts/        PlatformIO helper scripts
-platformio.ini  Build targets
-```
+| Binary Component | Flash Offset | Description |
+| :--- | :--- | :--- |
+| `bootloader.bin` | `0x1000` | ESP32 Second Stage Bootloader |
+| `partitions.bin` | `0x8000` | Partition Table (`huge_app.csv`) |
+| `boot_app0.bin` | `0xe000` | OTA Data Initialization |
+| `firmware.bin` | `0x10000` | Main Application Binary |
+
+Merged single-file binary:
+- **`firmware/hackbox-comp-merged.bin`** (Flashed at offset `0x0000`)
+
+---
 
 ## License
 
-MIT. See [LICENSE](LICENSE).
+MIT License. See [LICENSE](LICENSE).
 
-Based on upstream ESP32 security-tool firmware by jbohack and zr_crackiin, with
-compliance-oriented cleanup and selected CK42X additions.
+Developed and maintained by REDIHAT LABS for cybersecurity research, education, and authorized diagnostic auditing.
