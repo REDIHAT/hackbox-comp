@@ -4,9 +4,12 @@
   <img src="assets/hackbox-brand.jpg" alt="HackBox Branding" width="420" />
 </p>
 
+[![Build HackBox Compliant Firmware](https://github.com/REDIHAT/hackbox-comp/actions/workflows/build.yml/badge.svg)](https://github.com/REDIHAT/hackbox-comp/actions/workflows/build.yml)
+[![GitHub Release](https://img.shields.io/github/v/release/REDIHAT/hackbox-comp?color=brightgreen)](https://github.com/REDIHAT/hackbox-comp/releases/latest)
+
 **HackBox Compliant (`hackbox-comp`)** is an educational cybersecurity research and RF auditing firmware for ESP32 devices. 
 
-This repository provides the official source code and build configuration for devices shipped to users, built specifically to meet **strict RF compliance standards (FCC / Tindie Community Guidelines)**.
+This repository provides the official source code and build configuration for devices shipped to customers, built specifically to meet **strict RF compliance standards (FCC & Tindie Community Guidelines)**.
 
 ---
 
@@ -18,6 +21,19 @@ This firmware build intentionally excludes and eliminates all forms of signal di
 - **NO MouseJack or RF Packet Injection:** The `mousejack` module and keystroke injection attacks have been permanently deleted from both the source tree and the menu hierarchy.
 - **NO Replay Attack Module:** The `replay_attack` module has been completely removed.
 - **Passive & Diagnostic Only:** Features are restricted to passive RF signal analysis, packet logging, BLE scanning/tag detection, WiFi security analysis (handshake analysis for network owners), and educational cybersecurity demonstrations.
+
+---
+
+## Precompiled Compliant Binaries (Release v1.0.0-compliant)
+
+Official prebuilt binaries can be downloaded directly from the [Latest Release](https://github.com/REDIHAT/hackbox-comp/releases/latest):
+
+| Binary Asset | Flash Offset | Description | Direct Download |
+| :--- | :--- | :--- | :--- |
+| **`hackbox-comp-merged.bin`** | `0x0000` | **Merged single-file binary** (Plug & Flash) | [Download](https://github.com/REDIHAT/hackbox-comp/releases/download/v1.0.0-compliant/hackbox-comp-merged.bin) |
+| `firmware.bin` | `0x10000` | Main application firmware | [Download](https://github.com/REDIHAT/hackbox-comp/releases/download/v1.0.0-compliant/firmware.bin) |
+| `bootloader.bin` | `0x1000` | ESP32 secondary bootloader | [Download](https://github.com/REDIHAT/hackbox-comp/releases/download/v1.0.0-compliant/bootloader.bin) |
+| `partitions.bin` | `0x8000` | Partition table (`huge_app.csv`) | [Download](https://github.com/REDIHAT/hackbox-comp/releases/download/v1.0.0-compliant/partitions.bin) |
 
 ---
 
@@ -37,7 +53,7 @@ This firmware build intentionally excludes and eliminates all forms of signal di
 - Python 3.8+
 - PlatformIO Core:
   ```bash
-  pip install platformio
+  pip install platformio esptool
   ```
 
 ### Compiling Firmware
@@ -46,27 +62,22 @@ To build the standard compliant firmware binary for ESP32:
 platformio run -e hackbox-main
 ```
 
+### Merging Binaries
+To build the single-file merged binary:
+```bash
+python -m esptool --chip esp32 merge_bin -o hackbox-comp-merged.bin --flash_mode dio --flash_size 4MB 0x1000 .pio/build/hackbox-main/bootloader.bin 0x8000 .pio/build/hackbox-main/partitions.bin 0xe000 $BOOT_APP0 0x10000 .pio/build/hackbox-main/firmware.bin
+```
+
 ### Flashing to Hardware
 Connect your ESP32 board via USB, then run:
 ```bash
 platformio run -e hackbox-main -t upload
 ```
 
----
-
-## Merged Binary Flashing (ESP Web Tools / esptool)
-
-For web flashing or automated manufacturing, the firmware can be flashed using the pre-merged single binary or individual partition offsets:
-
-| Binary Component | Flash Offset | Description |
-| :--- | :--- | :--- |
-| `bootloader.bin` | `0x1000` | ESP32 Second Stage Bootloader |
-| `partitions.bin` | `0x8000` | Partition Table (`huge_app.csv`) |
-| `boot_app0.bin` | `0xe000` | OTA Data Initialization |
-| `firmware.bin` | `0x10000` | Main Application Binary |
-
-Merged single-file binary:
-- **`firmware/hackbox-comp-merged.bin`** (Flashed at offset `0x0000`)
+Or flash the merged binary directly using `esptool`:
+```bash
+python -m esptool --chip esp32 write_flash 0x0 hackbox-comp-merged.bin
+```
 
 ---
 
