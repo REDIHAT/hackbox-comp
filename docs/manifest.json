@@ -1,0 +1,18 @@
+{
+  "name": "HackBox Compliant Firmware",
+  "version": "1.0.0",
+  "home_page_url": "https://github.com/REDIHAT/hackbox-comp",
+  "funding_url": "https://redihatlabs.in",
+  "new_install_prompt_erase": true,
+  "builds": [
+    {
+      "chipFamily": "ESP32",
+      "parts": [
+        {
+          "path": "firmware/hackbox-comp-merged.bin",
+          "offset": 0
+        }
+      ]
+    }
+  ]
+}

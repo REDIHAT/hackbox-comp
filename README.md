@@ -5,11 +5,29 @@
 </p>
 
 [![Build HackBox Compliant Firmware](https://github.com/REDIHAT/hackbox-comp/actions/workflows/build.yml/badge.svg)](https://github.com/REDIHAT/hackbox-comp/actions/workflows/build.yml)
+
+[![Web Flasher](https://img.shields.io/badge/Web_Flasher-Launch_Flasher-red?style=for-the-badge&logo=espressif)](https://redihat.github.io/hackbox-comp/)
+
 [![GitHub Release](https://img.shields.io/github/v/release/REDIHAT/hackbox-comp?color=brightgreen)](https://github.com/REDIHAT/hackbox-comp/releases/latest)
 
 **HackBox Compliant (`hackbox-comp`)** is an educational cybersecurity research and RF auditing firmware for ESP32 devices. 
 
 This repository provides the official source code and build configuration for devices shipped to customers, built specifically to meet **strict RF compliance standards (FCC & Tindie Community Guidelines)**.
+
+---
+
+
+---
+
+## ⚡ In-Browser Web Flasher (Zero-Install)
+
+You can flash HackBox Compliant directly to any ESP32 device from your browser via Web Serial (Chrome, Edge, or Opera):
+
+👉 **[Launch HackBox Web Flasher](https://redihat.github.io/hackbox-comp/)**
+
+1. Plug your ESP32 into your computer with a USB data cable.
+2. Click **"CONNECT & FLASH HACKBOX"** and select your serial port.
+3. The flasher automatically erases, flashes `hackbox-comp-merged.bin`, and verifies the build in under 60 seconds!
 
 ---
 
