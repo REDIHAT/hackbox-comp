@@ -12,7 +12,7 @@
 
 **HackBox Compliant (`hackbox-comp`)** is an educational cybersecurity research and RF auditing firmware for ESP32 devices. 
 
-This repository provides the official source code and build configuration for devices shipped to customers, built specifically to meet **strict RF compliance standards (FCC & Tindie Community Guidelines)**.
+This repository provides the official source code and build configuration for devices shipped to customers, built specifically to meet **strict RF compliance standards (FCC Part 15 & International Telecommunications Standards)**.
 
 ---
 
